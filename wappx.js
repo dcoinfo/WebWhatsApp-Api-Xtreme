@@ -859,23 +859,22 @@
         return false;
     };
 
-
     window.WAPPX.sendSeen = function (id, done) {
-        var chat = window.Store.Chat.get(id);
-        if (chat !== undefined) {
-            if (done !== undefined) {
-                chat.sendSeen(false).then(function () {
-                    done(true);
-                });
-                return true;
-            } else {
-                chat.sendSeen(false);
-                return true;
-            }
-        }
-        if (done !== undefined) done();
-        return false;
-    };
+		var chat = window.WAPI.getChat(id);
+		if (chat !== undefined) {
+			if (done !== undefined) {
+				Store.SendSeen(Store.Chat.models[0], false).then(function () {
+					done(true);
+				});
+				return true;
+			} else {
+				Store.SendSeen(Store.Chat.models[0], false);
+				return true;
+			}
+		}
+		if (done !== undefined) done();
+		return false;
+	};
 
     function isChatMessage(message) {
         if (message.isSentByMe) {
